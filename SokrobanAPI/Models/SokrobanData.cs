@@ -7,13 +7,30 @@ using System.Threading.Tasks;
 
 namespace SokrobanAPI.Models
 {
-    [Table("PlayerInfo")]
-    public class SokrobanData
+    [Table("PLayerInfo")]
+    public class SokLogin
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public int ? Highscore { get; set; }
-        public DateTime ? BestTime { get; set; }
-        public int ? Level { get; set; }
     }
+
+
+    [Table("LevelStats")]
+    public class SokLevel
+    {
+        public int Level { get; set; }
+        public string Username { get; set; }
+        public int Score { get; set; }
+        public DateTime Time { get; set; }
+    }
+
+    [Table("PlayerStats")]
+    public class SokStats
+    {
+        public string Username { get; set; }
+        public int Level { get; set; }
+        public int Highscore { get; set; }
+        public DateTime BestTime { get; set; }
+    }
+
 }
