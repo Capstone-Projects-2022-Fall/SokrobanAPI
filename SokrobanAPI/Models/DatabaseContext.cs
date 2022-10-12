@@ -34,7 +34,7 @@ namespace SokrobanAPI.Models
 
         public DbSet<SokLogin> sokLogin { get; set; }
         public DbSet<SokLevel> sokLevel { get; set; }
-        public DbSet<SokStats> SokStats { get; set; }
+        public DbSet<SokStats> sokStats { get; set; }
 
     } //e=mc2
 }

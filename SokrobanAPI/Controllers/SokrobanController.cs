@@ -44,8 +44,20 @@ namespace SokrobanAPI.Controllers
         [Route("SokStats")]
         public List<SokStats> task()
         {
-            var SokData = (from d in _context.)
+            var SokData = (from d in _context.sokStats
+                           select d).OrderBy(H => H.Highscore).ToList();
+            return SokData;
         }
+
+        // Levels have been removed from application, for now
+        //[HttpGet]
+        //[Route("SokLevel")]
+        //public List<SokLevel> task()
+        //{
+        //    var SokLev = (from d in _context.sokLevel
+        //                   select d).OrderBy(L => L.Level).ToList();
+        //    return SokLev;
+        //}
 
 
 
