@@ -9,7 +9,7 @@ namespace SokrobanAPI.Models
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) 
+        public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         { 
 
         }
@@ -18,7 +18,7 @@ namespace SokrobanAPI.Models
         {
             modelBuilder.Entity<SokLogin>(entity =>
             {
-                entity.HasNoKey(); //This does have a key now, they all do
+                entity.HasKey(e => e.Username); //This does have a key now, they all do
             });
 
             modelBuilder.Entity<SokLevel>(entity =>

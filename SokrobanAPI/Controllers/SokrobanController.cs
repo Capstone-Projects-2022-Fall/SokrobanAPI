@@ -31,7 +31,7 @@ namespace SokrobanAPI.Controllers
         [Route("SokLogin")]
         public SokLogin SokLogin(string Username, string Password)
         {
-            //_context.Database.ExecuteSqlRaw();
+            _context.Database.ExecuteSqlRaw("insert into PlayerInfo(Username,Password) values({0},{1})",Username,Password);
 
             SokLogin sok = new SokLogin();
             sok.Username = Username;
