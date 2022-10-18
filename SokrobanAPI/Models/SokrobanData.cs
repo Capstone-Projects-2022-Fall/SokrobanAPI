@@ -10,8 +10,9 @@ namespace SokrobanAPI.Models
     [Table("PLayerInfo")]
     public class SokLogin
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
+        [Key]
+        public string? Username { get; set; }
+        public string? Password { get; set; }
     }
 
 

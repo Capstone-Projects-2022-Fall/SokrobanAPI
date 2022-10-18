@@ -20,13 +20,16 @@ namespace SokrobanAPI
     {
         public StartUp(IConfiguration configuration)
         {
-            configuration = configuration;
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }    
 
         public void ConfigureServices(IServiceCollection services) 
         {
+            var conn = Configuration.GetConnectionString("SokrobanConnection");
+            services.AddDbContext<Models.DatabaseContext>(options => options.UseSqlServer(conn));
+            services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SokrobanAPI", Version = "v1" });
