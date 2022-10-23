@@ -28,7 +28,7 @@ namespace SokrobanAPI.Controllers
         }   
 
         [HttpGet]
-        [Route("SokLogin")]
+        [Route("SokLogin")] //Insert Login info (Sign-up)
         public SokLogin SokLogin(string Username, string Password)
         {
             _context.Database.ExecuteSqlRaw("insert into PlayerInfo(Username,Password) values({0},{1})",Username,Password);
@@ -41,25 +41,55 @@ namespace SokrobanAPI.Controllers
         }
 
         [HttpGet]
-        [Route("SokStats")]
-        public List<SokStats> task()
+        [Route("SokLevelInsert")] //Insert Level Data
+        public SokLevel LevelInsert(string Username,int Score,int Time,int level)
         {
-            var SokData = (from d in _context.sokStats
-                           select d).OrderBy(H => H.Highscore).ToList();
-            return SokData;
+            _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,level) values({0},{1},{2},{3})", Username,Score, Time,level);
+
+            SokLevel sok = new SokLevel();
+            sok.Username = Username;
+            sok.Score = Score;
+            sok.Time = Time;
+            sok.Level = level;  
+            return sok;
+
         }
 
-        // Levels have been removed from application, for now
-        //[HttpGet]
-        //[Route("SokLevel")]
-        //public List<SokLevel> task()
-        //{
-        //    var SokLev = (from d in _context.sokLevel
-        //                   select d).OrderBy(L => L.Level).ToList();
-        //    return SokLev;
-        //}
+        [HttpGet]
+        [Route("SokStatsInst")] //Insert Level Data
+        public SokStats StatInsert(string Username,int Level, int Highscore, int BestTime)
+        {
+            _context.Database.ExecuteSqlRaw("insert into PlayerStats(Username,Level,Highscore,BestTime) values({0},{1},{2},{3})", Username, Level, Highscore, BestTime);
 
+            SokStats sok = new SokStats();
+            sok.Username = Username;
+            sok.Level = Level;
+            sok.Highscore = Highscore;
+            sok.BestTime = BestTime;
+            return sok;
 
+        }
+
+        [HttpGet]
+        [Route("SokLevel")] //Return level info
+        public List<SokLevel> Levelinfo()
+        {
+            return _context.sokLevel.ToList();    
+        }
+
+        [HttpGet]
+        [Route("SokStats")] //Return PlayerStats
+        public List<SokStats> Stats()
+        {
+            return _context.sokStats.ToList();
+        }
+
+        [HttpGet]
+        [Route("PasswordCheck")]
+        public List<SokLogin> SignIn()
+        {
+            return _context.sokLogin.ToList();
+        }
 
     }
 }

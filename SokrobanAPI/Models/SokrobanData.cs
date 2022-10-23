@@ -22,7 +22,7 @@ namespace SokrobanAPI.Models
         public int Level { get; set; }
         public string Username { get; set; }
         public int Score { get; set; }
-        public DateTime Time { get; set; }
+        public int Time { get; set; }
     }
 
     [Table("PlayerStats")]
@@ -31,7 +31,7 @@ namespace SokrobanAPI.Models
         public string Username { get; set; }
         public int Level { get; set; }
         public int Highscore { get; set; }
-        public DateTime BestTime { get; set; }
+        public int BestTime { get; set; }
     }
 
 }
