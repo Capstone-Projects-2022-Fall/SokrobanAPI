@@ -23,7 +23,7 @@ namespace SokrobanAPI.Models
 
             modelBuilder.Entity<SokLevel>(entity =>
             {
-                entity.HasNoKey(); //This does have a key now, they all do
+                entity.HasKey(e => e.Level); //This does have a key now, they all do
             });
 
             modelBuilder.Entity<SokStats>(entity =>
