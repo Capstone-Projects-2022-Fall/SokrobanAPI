@@ -27,7 +27,7 @@ namespace SokrobanAPI.Controllers
             _logger = logger;
         }   
 
-        [HttpGet]
+        [HttpPost]
         [Route("SokLogin")] //Insert Login info (Sign-up)
         public SokLogin SokLogin(string Username, string Password)
         {
@@ -89,6 +89,15 @@ namespace SokrobanAPI.Controllers
         public List<SokLogin> SignIn()
         {
             return _context.sokLogin.ToList();
+        }
+
+        [HttpGet]
+        [Route("Check")]
+        public List<SokLogin> SignInCheck(string usr)
+        {   
+            return (from d in _context.sokLogin
+                    where d.Username == usr
+                    select d).OrderBy(u => u.Username).ToList(); ;
         }
 
     }
