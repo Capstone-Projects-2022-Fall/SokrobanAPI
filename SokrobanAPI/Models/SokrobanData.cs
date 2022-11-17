@@ -21,7 +21,7 @@ namespace SokrobanAPI.Models
     {
         [Key]
         public int Level { get; set; }
-        public string ?Username { get; set; }
+        public string ? Username { get; set; }
         public int Score { get; set; }
         public int Time { get; set; }
     }
