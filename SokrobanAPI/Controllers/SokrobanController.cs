@@ -40,23 +40,23 @@ namespace SokrobanAPI.Controllers
 
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("SokLevelInsert")] //Insert Level Data
-        public SokLevel LevelInsert(string Username,int Score,int Time,int level)
+        public SokLevel LevelInsert(string ? Username,int Score,int Time,int Level)
         {
-            _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,level) values({0},{1},{2},{3})", Username,Score, Time,level);
+            _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,Level) values({0},{1},{2},{3})", Username,Score, Time,Level);
 
             SokLevel sok = new SokLevel();
             sok.Username = Username;
             sok.Score = Score;
             sok.Time = Time;
-            sok.Level = level;  
+            sok.Level = Level;  
             return sok;
 
         }
 
         [HttpGet]
-        [Route("SokStatsInst")] //Insert Level Data
+        [Route("SokStatsInst")] 
         public SokStats StatInsert(string Username,int Level, int Highscore, int BestTime)
         {
             _context.Database.ExecuteSqlRaw("insert into PlayerStats(Username,Level,Highscore,BestTime) values({0},{1},{2},{3})", Username, Level, Highscore, BestTime);
