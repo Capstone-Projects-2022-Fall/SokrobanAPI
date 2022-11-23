@@ -26,6 +26,15 @@ namespace SokrobanAPI.Models
         public int Time { get; set; }
     }
 
+    [Table("SaveData")]
+    public class SokSave
+    {
+        public string? Username { get; set; }
+        public int Level { get; set; }
+        public int Score { get; set; }
+        public int Time { get; set; }
+    }
+
     [Table("PlayerStats")]
     public class SokStats
     {
