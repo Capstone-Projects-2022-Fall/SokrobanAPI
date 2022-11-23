@@ -25,13 +25,13 @@ namespace SokrobanAPI.Controllers
         {
             _context = context;
             _logger = logger;
-        }   
+        }
 
-        [HttpPost]
+        [HttpGet]
         [Route("SokLogin")] //Insert Login info (Sign-up)
         public SokLogin SokLogin(string Username, string Password)
         {
-            _context.Database.ExecuteSqlRaw("insert into PlayerInfo(Username,Password) values({0},{1})",Username,Password);
+            _context.Database.ExecuteSqlRaw("insert into PlayerInfo(Username,Password) values({0},{1})", Username, Password);
 
             SokLogin sok = new SokLogin();
             sok.Username = Username;
@@ -40,19 +40,33 @@ namespace SokrobanAPI.Controllers
 
         }
 
-        [HttpPost]
-        [Route("SokLevelInsert")] //Insert Level Data
-        public SokLevel LevelInsert(string ? Username,int Score,int Time,int Level)
+        //[HttpGet]
+        //[Route("SokLevelInsert")] //Insert Level Data
+        //public SokLevel LevelInsert(string ? Username,int Score,int Time,int Level)
+        //{
+        //    _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,Level) values({0},{1},{2},{3})", Username,Score, Time,Level);
+
+        //    SokLevel sok = new SokLevel();
+        //    sok.Username = Username;
+        //    sok.Score = Score;
+        //    sok.Time = Time;
+        //    sok.Level = Level;  
+        //    return sok;
+
+        //}
+
+        [HttpGet]
+        [Route("SokSave")] //SaveslevelData
+        public SokSave Save(string Username, int Level, int Score, int Time)
         {
-            _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,Level) values({0},{1},{2},{3})", Username,Score, Time,Level);
+            _context.Database.ExecuteSqlRaw("insert into SaveData(Username,Level,Score,Time) values({0},{1},{2},{3})", Username,Score,Time,Level);
 
-            SokLevel sok = new SokLevel();
-            sok.Username = Username;
-            sok.Score = Score;
-            sok.Time = Time;
-            sok.Level = Level;  
-            return sok;
-
+            SokSave save = new SokSave();
+            save.Username = Username;
+            save.Level = Level;
+            save.Score = Score;
+            save.Time = Time;
+            return save;
         }
 
         [HttpGet]
