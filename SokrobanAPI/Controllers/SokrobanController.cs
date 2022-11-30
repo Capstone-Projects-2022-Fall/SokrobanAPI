@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace SokrobanAPI.Controllers
 {
@@ -28,32 +29,25 @@ namespace SokrobanAPI.Controllers
         }
 
         [HttpGet]
-        [Route("SokLogin")] //Insert Login info (Sign-up)
-        public SokLogin SokLogin(string Username, string Password)
+        [Route("SignUp")]
+        public SokLogin SignUp(string Username, string Password)
         {
             _context.Database.ExecuteSqlRaw("insert into PlayerInfo(Username,Password) values({0},{1})", Username, Password);
 
-            SokLogin sok = new SokLogin();
-            sok.Username = Username;
-            sok.Password = Password;
-            return sok;
-
+            SokLogin login = new SokLogin();
+            login.Username = Username;
+            login.Password = Password;  
+            return login;
         }
 
-        //[HttpGet]
-        //[Route("SokLevelInsert")] //Insert Level Data
-        //public SokLevel LevelInsert(string ? Username,int Score,int Time,int Level)
-        //{
-        //    _context.Database.ExecuteSqlRaw("insert into LevelStats(Username,Score,Time,Level) values({0},{1},{2},{3})", Username,Score, Time,Level);
-
-        //    SokLevel sok = new SokLevel();
-        //    sok.Username = Username;
-        //    sok.Score = Score;
-        //    sok.Time = Time;
-        //    sok.Level = Level;  
-        //    return sok;
-
-        //}
+        [HttpGet]
+        [Route("Login")]
+        public List<SokUser> Login(string usr)
+        {
+            return (from d in _context.sokUser
+                    where d.Username == usr
+                    select d).OrderBy(u => u.Username).ToList();
+        }
 
         [HttpGet]
         [Route("SokSave")] //SaveslevelData
@@ -70,49 +64,35 @@ namespace SokrobanAPI.Controllers
         }
 
         [HttpGet]
-        [Route("SokStatsInst")] 
-        public SokStats StatInsert(string Username,int Level, int Highscore, int BestTime)
+        [Route("LevelData")] //Return level info
+        public List<SokLevel> Levelinfo(string usr)
         {
-            _context.Database.ExecuteSqlRaw("insert into PlayerStats(Username,Level,Highscore,BestTime) values({0},{1},{2},{3})", Username, Level, Highscore, BestTime);
-
-            SokStats sok = new SokStats();
-            sok.Username = Username;
-            sok.Level = Level;
-            sok.Highscore = Highscore;
-            sok.BestTime = BestTime;
-            return sok;
-
-        }
-
-        [HttpGet]
-        [Route("SokLevel")] //Return level info
-        public List<SokLevel> Levelinfo()
-        {
-            return _context.sokLevel.ToList();    
-        }
-
-        [HttpGet]
-        [Route("SokStats")] //Return PlayerStats
-        public List<SokStats> Stats()
-        {
-            return _context.sokStats.ToList();
-        }
-
-        [HttpGet]
-        [Route("PasswordCheck")]
-        public List<SokLogin> SignIn()
-        {
-            return _context.sokLogin.ToList();
-        }
-
-        [HttpGet]
-        [Route("Check")]
-        public List<SokLogin> SignInCheck(string usr)
-        {   
-            return (from d in _context.sokLogin
+            return (from d in _context.sokLevel
                     where d.Username == usr
-                    select d).OrderBy(u => u.Username).ToList(); ;
+                    select d).OrderBy(u => u.Username).ToList();
         }
+
+        //[HttpGet]
+        //[Route("SokStatsInst")] 
+        //public SokStats StatInsert(string Username,int Level, int Highscore, int BestTime)
+        //{
+        //    _context.Database.ExecuteSqlRaw("insert into PlayerStats(Username,Level,Highscore,BestTime) values({0},{1},{2},{3})", Username, Level, Highscore, BestTime);
+
+        //    SokStats sok = new SokStats();
+        //    sok.Username = Username;
+        //    sok.Level = Level;
+        //    sok.Highscore = Highscore;
+        //    sok.BestTime = BestTime;
+        //    return sok;
+
+        //}
+
+        //[HttpGet]
+        //[Route("SokStats")] //Return PlayerStats
+        //public List<SokStats> Stats()
+        //{
+        //    return _context.sokStats.ToList();
+        //}
 
     }
 }

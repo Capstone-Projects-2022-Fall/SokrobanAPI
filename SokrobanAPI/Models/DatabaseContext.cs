@@ -35,12 +35,20 @@ namespace SokrobanAPI.Models
             {
                 entity.HasNoKey(); //This does have a key now, they all do
             });
+
+            modelBuilder.Entity<SokUser>(entity =>
+            {
+                entity.HasNoKey(); //This does have a key now, they all do
+            });
+
         }
 
         public DbSet<SokLogin> sokLogin { get; set; }
         public DbSet<SokLevel> sokLevel { get; set; }
         public DbSet<SokStats> sokStats { get; set; }
         public DbSet<SokSave> sokSave { get; set; }    
+
+        public DbSet<SokUser> sokUser { get; set; }
 
     } //e=mc2
 }
