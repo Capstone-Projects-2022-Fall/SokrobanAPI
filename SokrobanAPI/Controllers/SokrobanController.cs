@@ -28,7 +28,7 @@ namespace SokrobanAPI.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("SignUp")]
         public SokLogin SignUp(string Username, string Password)
         {
@@ -49,7 +49,7 @@ namespace SokrobanAPI.Controllers
                     select d).OrderBy(u => u.Username).ToList();
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("SokSave")] //SaveslevelData
         public SokSave Save(string Username, int Level, int Score, int Time)
         {
